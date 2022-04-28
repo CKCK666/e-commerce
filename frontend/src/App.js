@@ -4,7 +4,9 @@ import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
 import { Container } from "react-bootstrap";
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom"
+import CartScreen from "./screens/CartScreen";
 import SingleProductScreen from "./screens/SingleProductScreen";
+
 const App = () => {
   return (
    
@@ -14,11 +16,15 @@ const App = () => {
       <Container>
        
      <Routes>
+
      <Route path="/" element={<HomeScreen />} />
      
-     <Route path="/product/:id" element={<SingleProductScreen />} />
+     <Route path="/product/:id" element={<SingleProductScreen/>} />
+   
+     <Route path="/cart/:id ?" element={<CartScreen/>} />
+     
      </Routes>
-      
+     
         
       </Container>
       </main>
