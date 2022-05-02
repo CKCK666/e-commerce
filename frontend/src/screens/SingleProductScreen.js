@@ -1,29 +1,41 @@
 import React, { useEffect,useState } from 'react'
-import {Link } from "react-router-dom"
+import {useParams,Link,useNavigate} from "react-router-dom"
  import {Col,Row,ListGroup,Button,Card,Image, Form,} from "react-bootstrap"
 
  import Rating from '../components/Rating'
-import {useParams} from "react-router-dom"
+
 
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails } from '../actions/productAction'
-const history = createBrowserHistory();
+import { addToCart } from '../actions/cartAction'
 
-const SingleProductScreen = ({history}) => {
-  const[qty,setQty]=useState(0)
+
+const SingleProductScreen = () => {
+  const navigate=useNavigate()
+  const[qty,setQty]=useState(1)
+  
   const params=useParams()
   const dispatch=useDispatch()
   const productDetails=useSelector(state=>state.productDetails)
   const{loading,error,product}=productDetails
  
+  
+  
   useEffect(()=>{
-    
+  
     dispatch(listProductDetails(params.id))
   },[dispatch,params])
 
- const addToCartHandler=()=>{
-   history.push(`/cart/${params.id}?qty=${qty}`)
- }
+  
+  // const addToCartHandler=()=>{
+    
+  //   navigate(`/cart/${params.id}?qty=${qty}`)
+   
+   
+  // }
+  
+ 
+ 
   return (
     <>
          
@@ -87,7 +99,9 @@ const SingleProductScreen = ({history}) => {
                 <ListGroup.Item>
                 <Row>
                   <Col>
-                  <Button onClick={addToCartHandler}
+                  <Button onClick={()=>{
+                     navigate(`/cart/${params.id}?qty=${qty}`)
+                  }}
                   className='btn-block' type='button' disabled={product.countInStock===0}>Add to cart</Button>
                   </Col>
                 </Row>
