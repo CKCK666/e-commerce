@@ -1,34 +1,41 @@
 import React,{useEffect} from 'react'
 import {Link,useParams} from "react-router-dom"
 import {useDispatch,useSelector} from "react-redux"
-import {Row,Col,ListGroup,Image,Form,Button,Card} from "react-bootstrap"
-import { addToCart } from '../actions/cartAction'
+import {Row,Col,ListGroup,Image,Form,Button, Card, ListGroupItem} from "react-bootstrap"
+import { addToCart,removeCartItem } from '../actions/cartAction'
 
-const CartScreen = ({location}) => {
-  
-//   const params=useParams()
-//   const productId=params.id
-//   const qty =location.search ?Number(location.search.split("=")[1]):1
+const CartScreen = () => {
+ 
+  const params=useParams()
+  let productId=params.id
 
-//   const dispatch=useDispatch()
-//   const cart =useSelector(state=>state.cart)
-//  const {cartItems}=cart
-//  console.log(cartItems)
-
-//   useEffect(() => {
-//   if(productId){
-//     dispatch(addToCart(productId,qty))
-//   }
-
-
-
-//   },[dispatch,productId,qty])
+  const proId =productId ?  productId.split('&').shift() : " ";
+ 
+  let qty = productId ? productId.substring(productId.indexOf('&') + 1) : " ";
+ 
+ 
   
   
+
+  const dispatch=useDispatch()
+  const cart =useSelector(state=>state.cart)
+ const {cartItems}=cart
+
+
+  useEffect(() => {
+  if(proId.length>1){
+    dispatch(addToCart(proId,qty))
+  }
+
+
+
+  },[dispatch,proId,qty])
   
-//   const removeFromCartHandler=()=>{
-//     console.log("removed")
-//   }
+  
+  
+  const removeFromCartHandler=(id)=>{
+   dispatch( removeCartItem(id))
+  }
   
   
   
@@ -39,29 +46,32 @@ const CartScreen = ({location}) => {
   
   
   return (
- <>
-   <h1>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</h1>
-   {/* <Col md={8}>
+ <Row>
+   
+    <Col md={8}>
      <h1>Shopping Cart</h1>
-     {cartItems.length===0? <h1>Your cart is empty</h1>:<ListGroup variant='flush'>
+     {cartItems.length===0? <h1>Your cart is empty</h1>:
+     (<ListGroup variant='flush'>
          {cartItems.map(item=>(
            <ListGroup.Item key={item.product}>
              <Row>
                <Col md={2}>
-               <Image scr={item.Image}/>
+               <Image src={process.env.PUBLIC_URL + `${item.image}`} alt={item.name} fluid rounded/>
 
                </Col>
                <Col md={3}>
                  <Link to={`/product/${item.product}`}>{item.name}</Link>
                </Col>
                <Col md={2}>
-                 {item.price}
+                ₹  {item.price}
                </Col>
+               
                <Col md={2}>
-               <Form.Control as="select" value={qty} onChange={(e)=> 
+               
+               <Form.Control as="select" value={item.qty} onChange={(e)=> 
                        dispatch(addToCart (item.product,Number(e.target.value)))}>
                         {
-                        [...Array(item.countInStock).keys()].map((x)=> (
+                        [...Array(item.count).keys()].map((x)=> (
                           <option key={x+1} value={x+1}>
                             {x+1}
                           </option>
@@ -73,7 +83,7 @@ const CartScreen = ({location}) => {
                  <Button type="button"
                  variant="light"
                  onClick={()=>removeFromCartHandler(item.product)}>
-                   <i className='fas fa trash'>
+                   <i className='fas fa-trash'>
 
                    </i>
 
@@ -82,12 +92,21 @@ const CartScreen = ({location}) => {
              </Row>
            </ListGroup.Item>
          ))}  
-     </ListGroup>}
+     </ListGroup>)}
    </Col>
-   <Col md={2}></Col>
-   <Col md={2}></Col> */}
+   <Col md={4}>
+    <Card>
+      <ListGroup variant='flush'>
+       <ListGroup.Item>
+         <h1>Subtotal({cartItems.reduce((acc,item)=>acc+item.qty,0)})
+         total</h1>
+       </ListGroup.Item>
+      </ListGroup>
+    </Card>
+   </Col>
+   <Col md={2}></Col> 
  
- </>
+ </Row>
   )
 }
 

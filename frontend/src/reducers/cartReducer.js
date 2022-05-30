@@ -16,11 +16,14 @@ export const cartReducer=(state={cartItems:[]},action)=>{
             else{
                 return{
                     ...state,
-                    cartItems:[...state.cartItems]
+                    cartItems:[...state.cartItems,item]
                 }
             }
             
-        
+        case constants.CART_REMOVE_ITEM:
+            return{
+                ...state,cartItems:state.cartItems.filter((x)=>x.product !== action.payload)
+            }
         
         
         

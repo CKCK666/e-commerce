@@ -1,13 +1,14 @@
 import React, { useEffect,useState } from 'react'
 import {useParams,Link,useNavigate} from "react-router-dom"
  import {Col,Row,ListGroup,Button,Card,Image, Form,} from "react-bootstrap"
-
+//  import swal from 'sweetalert';
+//  import { addToCart } from '../actions/cartAction'
  import Rating from '../components/Rating'
 
 
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails } from '../actions/productAction'
-import { addToCart } from '../actions/cartAction'
+
 
 
 const SingleProductScreen = () => {
@@ -19,7 +20,8 @@ const SingleProductScreen = () => {
   const productDetails=useSelector(state=>state.productDetails)
   const{loading,error,product}=productDetails
  
-  
+ 
+ 
   
   useEffect(()=>{
   
@@ -27,14 +29,12 @@ const SingleProductScreen = () => {
   },[dispatch,params])
 
   
-  // const addToCartHandler=()=>{
-    
-  //   navigate(`/cart/${params.id}?qty=${qty}`)
+  const addToCartHandler=()=>{
    
-   
-  // }
+    navigate(`/cart/${params.id}&${qty}`)
   
- 
+    
+  }
  
   return (
     <>
@@ -99,9 +99,9 @@ const SingleProductScreen = () => {
                 <ListGroup.Item>
                 <Row>
                   <Col>
-                  <Button onClick={()=>{
-                     navigate(`/cart/${params.id}?qty=${qty}`)
-                  }}
+                  <Button onClick={addToCartHandler}
+                    
+              
                   className='btn-block' type='button' disabled={product.countInStock===0}>Add to cart</Button>
                   </Col>
                 </Row>

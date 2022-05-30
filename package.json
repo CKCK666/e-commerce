@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
-    "client": "npm start --prefix frontend",
+    "client": "nodemon npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm start --prefix frontend\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d"
@@ -15,12 +15,14 @@
   "author": "vishnu ck",
   "license": "ISC",
   "dependencies": {
+    "@sweetalert/with-react": "^0.1.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-async-handler": "^1.2.0",
-    "mongoose": "^6.3.1"
+    "mongoose": "^6.3.1",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "concurrently": "^7.1.0",
