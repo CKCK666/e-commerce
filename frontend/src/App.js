@@ -6,7 +6,10 @@ import { Container } from "react-bootstrap";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
 import CartScreen from "./screens/CartScreen";
 import SingleProductScreen from "./screens/SingleProductScreen";
-
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen"
+import ProfileScreen from "./screens/ProfileScreen";
+import ShippingScreen from "./screens/ShippingScreen";
 const App = () => {
   return (
    
@@ -16,7 +19,10 @@ const App = () => {
       <Container>
        
      <Routes>
-
+    <Route path="/login" element={<LoginScreen/>}/>
+    <Route path="/signup" element={<RegisterScreen/>}/>
+    <Route path="/profile" element={<ProfileScreen/>} />
+    <Route path="/shipping" element={<ShippingScreen/>} />
      <Route path="/" element={<HomeScreen />} />
      
      <Route path="/product/:id" element={<SingleProductScreen/>} />
@@ -31,8 +37,9 @@ const App = () => {
     
         
       </Container>
+      
+      
       </main>
-
       <Footer/>
     </Router>
   
