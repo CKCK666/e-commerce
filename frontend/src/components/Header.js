@@ -1,14 +1,19 @@
 import React from "react";
 import { Container ,Nav, Navbar, NavDropdown } from "react-bootstrap";
+
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector,useDispatch } from 'react-redux'
 import { logout } from "../actions/userAction";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
  const dispatch=useDispatch()
+ const navigate=useNavigate
 const userLogin=useSelector(state=>state.userLogin)
 const{ userInfo}=userLogin
 const logoutHandler=()=>{
   dispatch(logout())
+navigate("/login")
+ 
 }
   return (
   <header>
@@ -23,7 +28,7 @@ const logoutHandler=()=>{
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ms-auto">
       <LinkContainer to="/cart">
-      <Nav.Link><i class="fas fa-cart-shopping"></i>
+      <Nav.Link><i className="fas fa-cart-shopping"></i>
         Cart</Nav.Link>
   </LinkContainer>
   {userInfo ?(
@@ -35,7 +40,7 @@ const logoutHandler=()=>{
     </NavDropdown>
   ):(
     <LinkContainer to="/login">
-    <Nav.Link><i class="fas fa-user"></i>sign in</Nav.Link>
+    <Nav.Link><i className="fas fa-user"></i>sign in</Nav.Link>
 </LinkContainer>
   )}
        

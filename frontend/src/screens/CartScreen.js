@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import {Link,useParams} from "react-router-dom"
+import {Link,useParams,useNavigate} from "react-router-dom"
 import {useDispatch,useSelector} from "react-redux"
 import {Row,Col,ListGroup,Image,Form,Button, Card, ListGroupItem} from "react-bootstrap"
 import { addToCart,removeCartItem } from '../actions/cartAction'
@@ -36,8 +36,10 @@ const CartScreen = () => {
   const removeFromCartHandler=(id)=>{
    dispatch( removeCartItem(id))
   }
-  
-  
+  const navigate=useNavigate()
+  const checkOutHandler=()=>{
+    navigate("/shipping")
+  }
   
   
   
@@ -101,10 +103,23 @@ const CartScreen = () => {
          <h1>Subtotal({cartItems.reduce((acc,item)=>acc+item.qty,0)})
          total</h1>
        </ListGroup.Item>
+       <ListGroup.Item>
+         ${cartItems.reduce((acc,item)=>acc+item.price*item.qty,0).toFixed(2)}
+       
+       </ListGroup.Item>
+       <ListGroup.Item>
+        
+       <Button onClick={checkOutHandler} type='submit' disabled={cartItems.length==0} className='btn-block'> checkout
+     </Button>
+       </ListGroup.Item>
       </ListGroup>
+     
+  
     </Card>
    </Col>
-   <Col md={2}></Col> 
+   <Col md={2}>
+   
+    </Col> 
  
  </Row>
   )

@@ -3,7 +3,7 @@ import constants from "../constants/cartConstants";
 
 
 export const addToCart=(id,quantity)=> async(dispatch,getState)=>{
-    console.log(id,quantity)
+ 
  
   const qty=parseInt(quantity)
  
@@ -32,5 +32,37 @@ export const removeCartItem=(id)=>(dispatch,getState)=>{
     })
     localStorage.setItem("cartItems",JSON.stringify(getState().cart.cartItems))
   
+  }
+
+  export const saveShippingAddress=(data)=>(dispatch)=>{
+   
+      
+        dispatch({
+          type:constants.SAVE_SHIPPING_ADDRESS,
+          payload:data
+      })
+      localStorage.setItem("shippingAddress",JSON.stringify(data))
+      
+
+      return Promise.resolve();
+
+    
+
+
+
+
+
+
+   
+  
+  }
+
+  export const savePaymentMethod=(data)=>(dispatch)=>{
+    dispatch({
+        type:constants.SAVE_PAYMENT_METHOD,
+        payload:data
+    })
+    localStorage.setItem("paymentMethod",JSON.stringify(data))
+     return;
   }
 

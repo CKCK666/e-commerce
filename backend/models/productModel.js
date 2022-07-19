@@ -53,7 +53,7 @@ const productSchema=mongoose.Schema({
     },
     rating:{
         type:Number,
-        required:true,
+        required:false,
         default:0
     },
     price:{
